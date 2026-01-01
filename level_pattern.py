@@ -57,6 +57,7 @@ default_pattern_1 = [
         ]
 
 
+
 @dataclass
 class Lev_Patterns:
     def get_default(x: int = 1) -> list[Platform]:
@@ -68,7 +69,12 @@ class Lev_Patterns:
             12: default_pattern_12,
             7: default_pattern_7,
             3: default_pattern_3,
-            8: default_pattern_8
+            8: default_pattern_8,
+            16: default_pattern_16,
+            17: default_pattern_17,
+            19: default_pattern_19,
+            15: default_pattern_15,
+            14: default_pattern_14
         }
         
         return patterns.get(x, default_pattern_1)
@@ -256,7 +262,142 @@ default_pattern_4 = [
         ]
 
 
+default_pattern_17 = [
+            Platform(physics=Physics(
+                position=Vector2(2 * BLOCK_HEIGHT, BLOCK_HEIGHT // 2),
+                width=BLOCK_HEIGHT * 4,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 2 * BLOCK_HEIGHT, BLOCK_HEIGHT // 2),
+                width=BLOCK_HEIGHT * 4,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 10 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 10 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 15 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x // 12, SHAPE.y - BLOCK_HEIGHT // 2),
+                width=BLOCK_HEIGHT * 4,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(11 * SHAPE.x // 12, SHAPE.y - BLOCK_HEIGHT // 2),
+                width=BLOCK_HEIGHT * 4,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(2, BLOCK_HEIGHT * 2),
+                width=4,
+                height=PLAYER_SIZE.y + 16
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 1, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 8),
+                width=2,
+                height=PLAYER_SIZE.y + 16),
+                color=arcade.color.CARIBBEAN_GREEN
+            )
+        ]
+
+
 default_pattern_6 = [
+            Platform(physics=Physics(
+                position=Vector2(300, BLOCK_HEIGHT // 2),
+                width=600,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 100, BLOCK_HEIGHT // 2),
+                width=200,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 10 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 10 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 15 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x // 2, SHAPE.y - BLOCK_HEIGHT // 2),
+                width=SHAPE.x,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(225, 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(425, SHAPE.y - 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(625, 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 3.5 * BLOCK_HEIGHT, 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 7.5 * BLOCK_HEIGHT, SHAPE.y - 200),
+                width=BLOCK_HEIGHT,
+                height=400
+            )),
+            Platform(physics=Physics(
+                position=Vector2(300, 475),
+                width=2 * BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(350, 335),
+                width=2 * BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(475, 475),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(575, 475),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(300, 175),
+                width=2 * BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(2, BLOCK_HEIGHT * 2),
+                width=4,
+                height=PLAYER_SIZE.y + 16
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 1, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 8),
+                width=2,
+                height=PLAYER_SIZE.y + 16),
+                color=arcade.color.CARIBBEAN_GREEN
+            )
+        ]
+
+
+default_pattern_14 = [
             Platform(physics=Physics(
                 position=Vector2(SHAPE.x // 2, BLOCK_HEIGHT // 2),
                 width=SHAPE.x,
@@ -278,6 +419,91 @@ default_pattern_6 = [
                 height=BLOCK_HEIGHT
             )),
             Platform(physics=Physics(
+                position=Vector2(225, 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(425, SHAPE.y - 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(775, 220),
+                width=BLOCK_HEIGHT,
+                height=450
+            )),
+            Platform(physics=Physics(
+                position=Vector2(725, BLOCK_HEIGHT * 5.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(525, BLOCK_HEIGHT * 1.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(575, BLOCK_HEIGHT * 2.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(625, BLOCK_HEIGHT * 3.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(675, BLOCK_HEIGHT * 4.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 4.5 * BLOCK_HEIGHT, BLOCK_HEIGHT * 4.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 6.5 * BLOCK_HEIGHT, BLOCK_HEIGHT * 8.5),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 3.5 * BLOCK_HEIGHT, 250),
+                width=BLOCK_HEIGHT,
+                height=500
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 7.5 * BLOCK_HEIGHT, SHAPE.y - 200),
+                width=BLOCK_HEIGHT,
+                height=400
+            )),
+            Platform(physics=Physics(
+                position=Vector2(300, 475),
+                width=2 * BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(350, 335),
+                width=2 * BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(175, 150),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(75, 350),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(300, 175),
+                width=2 * BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
                 position=Vector2(2, BLOCK_HEIGHT * 2),
                 width=4,
                 height=PLAYER_SIZE.y + 16
@@ -289,6 +515,7 @@ default_pattern_6 = [
                 color=arcade.color.CARIBBEAN_GREEN
             )
         ]
+
 
 default_pattern_12 = [
             Platform(physics=Physics(
@@ -444,3 +671,162 @@ default_pattern_7 = [
                 height=350
             ))
         ]
+
+
+default_pattern_16 = [
+            Platform(physics=Physics(
+                position=Vector2(100, BLOCK_HEIGHT // 2),
+                width=200,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 100, BLOCK_HEIGHT // 2),
+                width=200,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 10 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 10 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 15 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(2, BLOCK_HEIGHT * 2),
+                width=4,
+                height=PLAYER_SIZE.y + 16
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 1, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 8),
+                width=2,
+                height=PLAYER_SIZE.y + 16),
+                color=arcade.color.CARIBBEAN_GREEN
+            ),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x // 2, SHAPE.y - BLOCK_HEIGHT // 2),
+                width=SHAPE.x,
+                height=BLOCK_HEIGHT
+            ))
+        ]
+
+
+default_pattern_15 = [
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x // 2, BLOCK_HEIGHT // 2),
+                width=SHAPE.x,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 10 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 10 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 15 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x // 2, SHAPE.y - BLOCK_HEIGHT // 2),
+                width=SHAPE.x,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(2, BLOCK_HEIGHT * 2),
+                width=4,
+                height=PLAYER_SIZE.y + 16
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 1, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 8),
+                width=2,
+                height=PLAYER_SIZE.y + 16),
+                color=arcade.color.CARIBBEAN_GREEN
+            )
+        ]
+
+
+default_pattern_19 = [
+            Platform(physics=Physics(
+                position=Vector2(100, BLOCK_HEIGHT // 2),
+                width=200,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(75, SHAPE.y - 3 * BLOCK_HEIGHT - 25),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(850, SHAPE.y - 1.5 * BLOCK_HEIGHT),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 75, 250),
+                width=BLOCK_HEIGHT,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 100, BLOCK_HEIGHT // 2),
+                width=200,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 10 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 10 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - BLOCK_HEIGHT // 2, PLAYER_SIZE.y + 15 + BLOCK_HEIGHT + (SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT) // 2),
+                width=BLOCK_HEIGHT,
+                height=SHAPE.y - PLAYER_SIZE.y - 15 - BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x // 2, SHAPE.y - BLOCK_HEIGHT // 2),
+                width=SHAPE.x,
+                height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(2, BLOCK_HEIGHT * 2),
+                width=4,
+                height=PLAYER_SIZE.y + 16
+            )),
+            Platform(physics=Physics(
+                position=Vector2(SHAPE.x - 1, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 8),
+                width=2,
+                height=PLAYER_SIZE.y + 16),
+                color=arcade.color.CARIBBEAN_GREEN
+            )
+        ]
+
+
+blocks_19_1 = [Platform(physics=Physics(
+               position=Vector2(300, 150), 
+               width=BLOCK_HEIGHT, 
+               height=BLOCK_HEIGHT)),
+            Platform(physics=Physics(
+               position=Vector2(400, 450), 
+               width=BLOCK_HEIGHT, 
+               height=BLOCK_HEIGHT)),
+            Platform(physics=Physics(
+               position=Vector2(700, 270), 
+               width=BLOCK_HEIGHT, 
+               height=BLOCK_HEIGHT))
+]
+
+blocks_19_2 = [Platform(physics=Physics(
+               position=Vector2(200, 350), 
+               width=BLOCK_HEIGHT, 
+               height=BLOCK_HEIGHT)),
+            Platform(physics=Physics(
+               position=Vector2(500, 450), 
+               width=BLOCK_HEIGHT, 
+               height=BLOCK_HEIGHT)),
+            Platform(physics=Physics(
+               position=Vector2(900, 290), 
+               width=BLOCK_HEIGHT, 
+               height=BLOCK_HEIGHT))
+]

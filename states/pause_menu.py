@@ -11,7 +11,7 @@ class PauseMenu(BaseState):
     height: int
     title: str
     level_num: int
-    game_app_ref: any  # GameApp
+    game_app_ref: any
 
     def __post_init__(self) -> None:
         self.title_text = arcade.Text(

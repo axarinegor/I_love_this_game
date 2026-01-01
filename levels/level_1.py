@@ -20,7 +20,7 @@ class Level_1:
                  level_num: int = 1,
                  door_is_open: bool = True
                  ) -> None:
-        self._platforms = [i for i in Lev_Patterns.get_default(1)]
+        self._platforms = [i for i in Lev_Patterns.get_default(level_num)]
         self.background_color = (213, 255, 202)
         self.block_texture = Lev_Patterns.get_default_block()
         self._exit_position = Vector2(SHAPE.x - 15, BLOCK_HEIGHT + PLAYER_SIZE.y // 2)

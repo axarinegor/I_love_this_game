@@ -20,7 +20,7 @@ class Level_4:
                  game_app: Any = None,
                  level_num: int = 4  
                  ) -> None:
-        self._platforms = [i for i in Lev_Patterns.get_default(4)]
+        self._platforms = [i for i in Lev_Patterns.get_default(level_num)]
         self.background_color = (213, 255, 202)
         self.block_texture = Lev_Patterns.get_default_block()
         self._exit_position = Vector2(SHAPE.x - 15, BLOCK_HEIGHT + PLAYER_SIZE.y // 2)

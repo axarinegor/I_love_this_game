@@ -13,7 +13,7 @@ NAME_LEVELS = {1:'1 - Знакомство',
                3:'3 - Секретные стены',
                4:'4 - Углы',
                5:'5 - ',
-               6:'6 - ',
+               6:'6 - Тыкай и рисуй!',
                7:'7 - Темнота',
                8:'8 - Ракеты!',
                9:'9 - ',
@@ -21,13 +21,13 @@ NAME_LEVELS = {1:'1 - Знакомство',
                11:'11 - ',
                12:'12 - Имя, только имя',
                13:'13 - ',
-               14:'14 - ',
-               15:'15 - ',
-               16:'16 - ',
-               17:'17 - ',
+               14:'14 - Прыгун',
+               15:'15 - Странный алфавит',
+               16:'16 - Альцгеймер',
+               17:'17 - Гравитация',
                18:'18 - ',
-               19:'19 - ',
-               20:'20 - ',
+               19:'19 - Переключатель',
+               20:'20 - Конец(',
                }
 LEVEL_1 = [arcade.Text(
             text="Управление",
@@ -84,6 +84,84 @@ LEVEL_3 = [arcade.Text(
             bold=True
            )]
 
+LEVEL_6 = [arcade.Text(
+            text="Тыкай, рисуй!",
+            x=460,
+            y=530,
+            color=arcade.color.BLACK,
+            font_size=MEDIUM_SIZE,
+            font_name=pixel_font,
+            bold=True
+           )]
+
+
+LEVEL_14 = [arcade.Text(
+            text="Только",
+            x=480,
+            y=530,
+            color=arcade.color.BLACK,
+            font_size=MEDIUM_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           arcade.Text(
+            text="в прыжке",
+            x=480,
+            y=470,
+            color=arcade.color.BLACK,
+            font_size=MEDIUM_SIZE,
+            font_name=pixel_font,
+            bold=True
+           )]
+
+LEVEL_20 = [arcade.Text(
+            text="Спасибо большое за прохождение!",
+            x=150,
+            y=510,
+            color=arcade.color.BLACK,
+            font_size=MEDIUM_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           arcade.Text(
+            text="игра, а сам проект темболее)",
+            x=280,
+            y=320,
+            color=arcade.color.BLACK,
+            font_size=SMALL_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           arcade.Text(
+            text="Я надеюсь, вам понравилась",
+            x=280,
+            y=380,
+            color=arcade.color.BLACK,
+            font_size=SMALL_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           ]
+
+LEVEL_17 = [arcade.Text(
+            text='<><><><><>',
+            x=500,
+            y=350,
+            color=arcade.color.BLACK,
+            font_size=MEDIUM_SIZE,
+            font_name=pixel_font,
+            bold=True
+           )]
+
+LEVEL_19 = [arcade.Text(
+            text='Переключатель',
+            x=650,
+            y=420,
+            color=arcade.color.BLACK,
+            font_size=MEDIUM_SIZE,
+            font_name=pixel_font,
+            bold=True
+           )]
 
 LEVEL_4 = [arcade.Text(
             text="Углы",
@@ -105,6 +183,37 @@ LEVEL_12 = [arcade.Text(
             font_name=pixel_font,
             bold=True
            )]
+
+
+LEVEL_15 = [arcade.Text(
+            text=".....",
+            x=380,
+            y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           arcade.Text(
+            text="...--",
+            x=535,
+            y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           arcade.Text(
+            text="----.",
+            x=710,
+            y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True
+           ),
+           ]
+
 
 LEVEL_7 = [arcade.Text(
             text="Темнота",

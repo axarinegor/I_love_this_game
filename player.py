@@ -16,7 +16,8 @@ class Player(proto.Player):
     facing_right: bool = field(default=True, init=False)
     _is_moving: bool = field(default=False, init=False)
     _is_jumping: bool = field(default=False, init=False)
-    
+    gravity_direction: int = 1 
+
     def __post_init__(self):
         self._walk_animation = Animation.load(frames_count=4, period=0.4)
         self._stay_sprite = Sprite.load_raw_image("stay.png", Vector2Int.zero())
@@ -30,43 +31,40 @@ class Player(proto.Player):
             self.facing_right = True
         elif direction.x < 0:
             self.facing_right = False
-        
+
     def update(self, dt: float, platforms: list = None) -> None:
-        self.physics.update(dt)
+        self.physics.update(dt, gravity_direction=self.gravity_direction)
         if platforms:
             Move.player_update(platforms, self.physics)
-        if self._is_jumping:
-            if self.physics.on_ground:
-                self._is_jumping = False
-        self._walk_animation.update(dt) if not self._is_jumping and self._is_moving else self._walk_animation.reset() 
-    
+        if self.physics.on_ground:
+            self._is_jumping = False
+        self._walk_animation.update(dt) if not self._is_jumping and self._is_moving else self._walk_animation.reset()
+
     @property
     def texture(self):
+        if self._is_moving and self.gravity_direction == -1:
+            return self._walk_animation.current_frame.get()
         if self._is_jumping:
             return self._jump_sprites.get()
         return self._stay_sprite.get() if not self._is_moving else self._walk_animation.current_frame.get()
-    
+
     @property
     def position(self) -> Vector2:
         return self.physics.position
-    
+
     def jump(self) -> None:
         if self.physics.on_ground:
             self._is_jumping = True
             self._is_moving = False
             self.physics.jump()
-    
-    @property
-    def position(self) -> Vector2:
-        return self.physics.position
-    
+
+    def toggle_gravity(self) -> None:
+        self.gravity_direction *= -1
+
     @property
     def width(self) -> float:
         return self.physics.width
-    
+
     @property
     def height(self) -> float:
         return self.physics.height
-    
-    def kill(self) -> None:
-        ...

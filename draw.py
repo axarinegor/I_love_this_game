@@ -15,21 +15,21 @@ PLAYER_BORDER_COLOR = arcade.color.BLACK
 
 @dataclass
 class Draw:
-    def player(self, player: dict) -> None:
+    def player(self, player: proto.Player, is_normal: int = 1) -> None:
         if not player.facing_right:
             arcade.draw_texture_rect(
-                texture=player.texture, 
-                rect=arcade.rect.XYWH(x=player.position.x, 
-                                      y=player.position.y, 
-                                      width=-player.width, 
-                                      height=player.height))
+                texture=player.texture,
+                rect=arcade.rect.XYWH(x=player.position.x,
+                                    y=player.position.y,
+                                    width=-player.width,
+                                    height=is_normal * player.height))
         else:
             arcade.draw_texture_rect(
-                texture=player.texture, 
-                rect=arcade.rect.XYWH(x=player.position.x, 
-                                      y=player.position.y, 
-                                      width=player.width, 
-                                      height=player.height))
+                texture=player.texture,
+                rect=arcade.rect.XYWH(x=player.position.x,
+                                    y=player.position.y,
+                                    width=player.width,
+                                    height=is_normal * player.height))
 
     def platform(self, platform: proto.Platform) -> None:
         arcade.draw_lbwh_rectangle_filled(

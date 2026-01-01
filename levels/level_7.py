@@ -47,7 +47,7 @@ class Level_7:
         self._keyboard_state_changed = Event[set[int], None]()
         self._keyboard_state_changed.subscribe(self._on_keys_changed)
 
-        self._platforms = [i for i in Lev_Patterns.get_default(7)]
+        self._platforms = [i for i in Lev_Patterns.get_default(level_num)]
         self.is_dark = False
 
         self.game_app = game_app

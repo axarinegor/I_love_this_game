@@ -48,7 +48,7 @@ class Level_2:
         self._keyboard_state_changed = Event[set[int], None]()
         self._keyboard_state_changed.subscribe(self._on_keys_changed)
 
-        self._platforms = [i for i in Lev_Patterns.get_default(2)]
+        self._platforms = [i for i in Lev_Patterns.get_default(level_num)]
 
     def _on_keys_changed(self, pressed_keys: set[int]) -> None:
         direction = Move.keys_to_direction(pressed_keys)
