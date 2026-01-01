@@ -1,7 +1,7 @@
 import arcade
 from vector import Vector2
 from button import Button
-from save_sistem import SaveSystem
+from save_system import SaveSystem
 
 class MainMenu:
     def __init__(self, screen_width: int, screen_height: int):

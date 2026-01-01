@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Callable
+from physics import Physics
 from vector import Vector2, Vector2Int
 
 
@@ -66,6 +67,45 @@ class Door(ABC):
     @abstractmethod
     def update(self, dt: float) -> None:
         ...
+
+
+class Rocket(ABC):
+    @property
+    @abstractmethod
+    def physics(self) -> Physics:
+        ...
+    
+    @abstractmethod
+    def update(self, dt: float) -> None:
+        ...
+
+    @abstractmethod
+    def touched(self, player) -> None:
+        ...
+
+class Rockets(ABC):
+    @abstractmethod
+    def spawn(self, position: Vector2) -> None:
+        ...
+ 
+    @abstractmethod
+    def kill(self, rocket) -> None:
+        ...
+
+    @abstractmethod
+    def apply(self, function) -> None:
+        ...
+
+    @abstractmethod
+    def update(self, dt: float) -> None:
+        ...
+
+    @abstractmethod
+    def touched(self, player):
+        ...
+
+    
+
 
 
 

@@ -1,6 +1,7 @@
 import pyglet
 from digit_block import DigitBlock
 from physics import BLOCK_HEIGHT
+from rocket import Rocket
 from vector import Vector2Int
 import arcade
 from dataclasses import dataclass
@@ -17,14 +18,14 @@ class Draw:
     def player(self, player: dict) -> None:
         if not player.facing_right:
             arcade.draw_texture_rect(
-                texture=player.texture(), 
+                texture=player.texture, 
                 rect=arcade.rect.XYWH(x=player.position.x, 
                                       y=player.position.y, 
                                       width=-player.width, 
                                       height=player.height))
         else:
             arcade.draw_texture_rect(
-                texture=player.texture(), 
+                texture=player.texture, 
                 rect=arcade.rect.XYWH(x=player.position.x, 
                                       y=player.position.y, 
                                       width=player.width, 
@@ -95,6 +96,29 @@ class Draw:
         )
         
         block.to_draw().draw()
+
+    def rocket(self, rocket: Rocket, texture: arcade.Texture) -> None:
+        arcade.draw_texture_rect(
+                    texture=texture,
+                    rect=arcade.rect.XYWH(x=rocket.position.x, 
+                                        y=rocket.position.y, 
+                                        width=rocket.physics.width, 
+                                        height=rocket.physics.height)
+                )
+
+    def explode(self, explosion_effects: list):
+        if not explosion_effects:
+            return
+        for effect in explosion_effects:
+            arcade.draw_texture_rect(
+                texture=effect.get_texture(),
+                rect=arcade.rect.XYWH(
+                    x=effect.get_position().x,
+                    y=effect.get_position().y,
+                    width=64,
+                    height=64
+                )
+            )
 
     def level_4(self) -> None:
         color = (77, 123, 34)

@@ -24,7 +24,7 @@ def main() -> None:
         )
 
     player = Player(player_physics, PLAYER_VELOCITY)
-    game = GameEngine_12(TITLE, SHAPE, Draw(), player)
+    game = GameEngine_8(TITLE, SHAPE, Draw(), player)
     game.keyboard_state_changed.subscribe(lambda keys: player.set_direction(Move.keys_to_direction(keys)))
     game.keyboard_state_changed.subscribe(
         lambda keys: player.jump() if Move.should_jump(keys) else None
@@ -35,129 +35,98 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
 '''
-
-
 import arcade
-from vector import Vector2Int
-from draw import Draw, PLAYER_SIZE
-from move import Move
-from physics import SHAPE, Physics, SPAWN_POSITION
-from player import Player
-from gameengine import create_level
-from main_menu import MainMenu
-from level_select import LevelSelect
+from states.level import LevelState
+from states.main_menu import MainMenu
+from states.level_select import LevelSelect
+from levels.level_factory import LevelFactory
+from save_system import SaveSystem
+from states.base_state import BaseState
+from typing import Any
 
+class GameApp(arcade.Window):
+    def __init__(self) -> None:
+        super().__init__(1250, 650, "I Love This Game", vsync=True)
+        self.save_system = SaveSystem()
+        self.state_stack = []
+        self.push_state("main_menu")
 
-TITLE = 'I love this game'
-GRAVITY = 3000
-PLAYER_VELOCITY = 400
-LEVEL_CLOSED_DOOR = [4, 12]
-
-class GameApp(arcade.Window):    
-    def __init__(self):
-        super().__init__(SHAPE.x, SHAPE.y, TITLE, vsync=True)
-        self.states = {
-            "main_menu": MainMenu(SHAPE.x, SHAPE.y),
-            "level_select": LevelSelect(SHAPE.x, SHAPE.y),
-            "playing": None
-        }
-        
-        self.current_state = "main_menu"
-        self.player = None
-        self.drawi = Draw()
-        self.current_level_game = None
-        self.current_level_num = 1
-    
-    def switch_state(self, new_state: str):
-        self.current_state = new_state
-    
-    def start_game_level(self, level_num: int):
-        player_physics = Physics(
-            position=SPAWN_POSITION,
-            width=PLAYER_SIZE.x + 2,
-            height=PLAYER_SIZE.y + 2,
-            gravity=GRAVITY
-        )
-        self.player = Player(player_physics, PLAYER_VELOCITY)
-        self.current_level_num = level_num
-        
-        self.current_level_game = create_level(
-            level_num=level_num,
-            title=TITLE,
-            screen_shape=SHAPE,
-            draw=self.drawi,
-            player=self.player,
-            door_is_open=level_num not in LEVEL_CLOSED_DOOR
-        )
-        
-        self.current_level_game.keyboard_state_changed.subscribe(
-            lambda keys: self.player.set_direction(Move.keys_to_direction(keys))
-        )
-        self.current_level_game.keyboard_state_changed.subscribe(
-            lambda keys: self.player.jump() if Move.should_jump(keys) else None
-        )
-        
-        self.switch_state("playing")
-    
-    def handle_action(self, action_result):
-        if not action_result:
-            return
-        
-        action = action_result.get("action")
-        
-        if action == "start_game":
-            level_num = action_result.get("level_num", 1)
-            self.start_game_level(level_num)
-        
-        elif action == "open_level_select":
-            self.switch_state("level_select")
-        
-        elif action == "back":
-            self.switch_state("main_menu")
-        
-        elif action == "exit":
-            arcade.close_window()
-    
-    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-        if button != arcade.MOUSE_BUTTON_LEFT:
-            return
-        
-        if self.current_state == "playing" and self.current_level_game:
-            self.current_level_game.on_mouse_press(x, y, button, modifiers)
-            return
-        
-        current_menu = self.states.get(self.current_state)
-        if current_menu:
-            action_result = current_menu.handle_mouse_click(x, y)
-            self.handle_action(action_result)
-    
-    def on_fixed_update(self, delta_time: float):
-        if self.current_state == "playing" and self.current_level_game:
-            self.current_level_game.on_fixed_update(delta_time)
-    
-    def on_draw(self):
-        self.clear()
-        if self.current_state == "playing" and self.current_level_game:
-            self.current_level_game.on_draw()
+    def push_state(self, state_name: str, **kwargs: Any) -> None:
+        if state_name == "main_menu":
+            state = MainMenu(self.width, self.height)
+        elif state_name == "level_select":
+            state = LevelSelect(self.width, self.height, self.save_system)
+        elif state_name == "level":
+            level_num = kwargs.get("level_num", 1)
+            state = LevelFactory.create_level(level_num, self)
         else:
-            current_menu = self.states.get(self.current_state)
-            if current_menu:
-                current_menu.draw()
-    
-    def on_key_press(self, symbol: int, modifiers: int):
-        if self.current_state == "playing" and self.current_level_game:
-            self.current_level_game.on_key_press(symbol, modifiers)
-    
-    def on_key_release(self, symbol: int, modifiers: int):
-        if self.current_state == "playing" and self.current_level_game:
-            self.current_level_game.on_key_release(symbol, modifiers)
+            return
+        self.state_stack.append(state)
+
+    def reset_level(self, level_num: int) -> None:
+        if self.state_stack and isinstance(self.state_stack[-1], LevelState):
+            self.state_stack.pop()
+        self.push_state("level", level_num=level_num)
+        
+    def is_paused(self) -> bool:
+        if self.state_stack and isinstance(self.state_stack[-1], LevelState):
+            return self.state_stack[-1].paused
+        return False
+
+    def pause_level(self) -> None:
+        if self.state_stack and isinstance(self.state_stack[-1], LevelState):
+            self.state_stack[-1].toggle_pause()
+
+    def pop_state(self) -> None:
+        if len(self.state_stack) > 1:
+            self.state_stack.pop()
+
+    def switch_to_state(self, state_name: str, **kwargs: Any) -> None:
+        self.state_stack = []
+        self.push_state(state_name, **kwargs)
+
+    def handle_action(self, action: dict[str, Any]) -> None:
+        if action["action"] == "start_game":
+            self.switch_to_state("level", level_num=action.get("level_num", 1))
+        elif action["action"] == "open_level_select":
+            self.push_state("level_select")
+        elif action["action"] == "back":
+            self.pop_state()
+        elif action["action"] == "exit":
+            arcade.close_window()
+        elif action["action"] == "reset_progress":
+            self.save_system.reset_progress()
+            self.switch_to_state("level", level_num=1)
+
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
+        if self.state_stack:
+            action = self.state_stack[-1].handle_input(x, y, button, modifiers=modifiers)
+            if action:
+                self.handle_action(action)
+
+    def on_key_press(self, key: int, modifiers: int) -> None:
+        if self.state_stack:
+            self.state_stack[-1].handle_input(key=key, modifiers=modifiers)
+
+    def on_key_release(self, key: int, modifiers: int) -> None:
+        if self.state_stack:
+            self.state_stack[-1].handle_input(key=key, modifiers=modifiers, release=True)
+
+    def on_update(self, delta_time: float) -> None:
+        if self.state_stack:
+            self.state_stack[-1].update(delta_time)
+
+    def on_draw(self) -> None:
+        self.clear()
+        if self.state_stack:
+            self.state_stack[-1].draw()
 
 
-def main():
+def main() -> None:
     game = GameApp()
     arcade.run()
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

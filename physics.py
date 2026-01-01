@@ -3,7 +3,7 @@ from vector import Vector2, Vector2Int
 
 JUMP_VELOCITY = 1100
 SHAPE = Vector2Int(1250, 650)
-SPAWN_POSITION = Vector2(100, 300)
+SPAWN_POSITION = Vector2(90, 150)
 BLOCK_HEIGHT = 50
 
 @dataclass
@@ -18,7 +18,7 @@ class Physics:
     on_ground: bool = False 
     is_active: bool = True 
     
-    gravity: float = 800.0
+    gravity: float = 2600.0
     max_fall_speed: float = 1000.0
     
     @property
