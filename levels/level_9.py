@@ -2,7 +2,7 @@ from digit_block import DIGIT_BLOCK_WIDTH, DigitBlock
 from door import Door
 from draw import PLAYER_SIZE, Draw
 from gamerules import GameRules
-from level_pattern import Lev_Patterns
+from level_pattern import Lev_Patterns, digit_blocks_9
 from move import Move 
 from observer import Event, OnEventSubscriber
 from physics import BLOCK_HEIGHT, SHAPE, Physics
@@ -11,7 +11,7 @@ from vector import Vector2, Vector2Int
 import protocols as proto
 from typing import Any
 
-class Level_4:
+class Level_9:
     def __init__(self,
                  title: str,
                  screen_shape: Vector2Int,
@@ -41,26 +41,14 @@ class Level_4:
         self._player = player
         self._draw = draw
         self.pressed_keys = set[int]()
-        self.ANSWER = [3, 0, 4]
+        self.ANSWER = [3, 2, 2, 4, 4, 1, 4, 1, 3, 2, 2, 0]
         self.blocks_changed = True
-        
+
         self._keyboard_state_changed = Event[set[int], None]()
         self._keyboard_state_changed.subscribe(self._on_keys_changed)
 
-        self.digit_blocks = []
+        self.digit_blocks = digit_blocks_9[:]
         
-        start_x = 500
-        for i in range(3):
-            block = DigitBlock(
-                physics=Physics(
-                    position=Vector2(start_x + i * (DIGIT_BLOCK_WIDTH + 30), 500),
-                    width=DIGIT_BLOCK_WIDTH,
-                    height=DIGIT_BLOCK_WIDTH,
-                    is_active=False
-                )
-            )
-            self.digit_blocks.append(block)
-
         self.game_app = game_app
         self.level_num = level_num
 
@@ -132,8 +120,7 @@ class Level_4:
         self._draw.door(self._left_door, Lev_Patterns.get_default_door())
         for block in self.digit_blocks:
             self._draw.digit_block(block)
-        self._draw.texts(LEVEL_4)
-        self._draw.level_4()
+        self._draw.texts(LEVEL_9)
     
     def change_door(self, door: Door, only: bool = None) -> None:
         if only is None:

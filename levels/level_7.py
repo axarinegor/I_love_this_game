@@ -85,6 +85,9 @@ class Level_7:
         self.pressed_keys.discard(symbol)
         self._keyboard_state_changed.invoke(self.pressed_keys)
 
+    def on_mouse_press(self) -> None:
+        return
+
     def on_draw(self) -> None:
         arcade.set_background_color(self.background_color)
         self._draw.player(self._player)

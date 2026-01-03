@@ -27,7 +27,10 @@ class LevelState(BaseState):
                 self.level_instance.on_key_press(key, modifiers)
             else:
                 self.level_instance.on_key_release(key, modifiers)
-        if x is not None and y is not None and button == arcade.MOUSE_BUTTON_LEFT:
+        if x is not None and y is not None and button is not None:
+            modifiers = kwargs.get('modifiers', 0)
+            self.level_instance.on_mouse_press(x, y, button, modifiers)
+        elif x is not None and y is not None and button == arcade.MOUSE_BUTTON_LEFT:
             modifiers = kwargs.get('modifiers', 0)
             self.level_instance.on_mouse_press(x, y, button, modifiers)
 

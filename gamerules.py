@@ -5,7 +5,7 @@ import arcade
 
 class GameRules:
     @staticmethod
-    def check_level_completion(player: Player, exit_position: Vector2, exit_radius: float = 10.0) -> bool:
+    def check_level_completion(player: Player, exit_position: Vector2, exit_radius: float = 20.0) -> bool:
         distance = (player.position - exit_position).length
         return distance < exit_radius
     

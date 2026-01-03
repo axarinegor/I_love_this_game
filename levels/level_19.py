@@ -75,13 +75,12 @@ class Level_19:
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
         if button == arcade.MOUSE_BUTTON_LEFT:
-            # ✅ Переключаем списки
             if self.is_first_set:
                 self.current_blocks = blocks_19_2
             else:
                 self.current_blocks = blocks_19_1
             self.is_first_set = not self.is_first_set
-
+    
     def on_key_press(self, symbol: int, modifiers: int) -> None:
         if symbol == arcade.key.P:
             if not self.game_app.is_paused():
@@ -100,7 +99,6 @@ class Level_19:
         for platform in self._platforms:
             self._draw.platform(platform)
             self._draw.texture_wall(platform, self.block_texture)
-        # ✅ Рисуем текущие блоки
         for platform in self.current_blocks:
             self._draw.platform(platform)
             self._draw.texture_wall(platform, self.block_texture)

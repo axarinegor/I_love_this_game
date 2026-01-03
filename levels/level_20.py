@@ -49,6 +49,9 @@ class Level_20:
         self._keyboard_state_changed = Event[set[int], None]()
         self._keyboard_state_changed.subscribe(self._on_keys_changed)
 
+        self.lampa_texture = Lev_Patterns.get_default_lampa()
+        self.sofa_texture = Lev_Patterns.get_default_sofa()
+
     def _on_keys_changed(self, pressed_keys: set[int]) -> None:
         direction = Move.keys_to_direction(pressed_keys)
         self._player.set_direction(direction)
@@ -91,6 +94,8 @@ class Level_20:
         for platform in self._platforms:
             self._draw.platform(platform)
             self._draw.texture_wall(platform, self.block_texture)
+        arcade.draw_texture_rect(self.sofa_texture, arcade.LBWH(SHAPE.x - BLOCK_HEIGHT * 5, 50, 50, 70))
+        arcade.draw_texture_rect(self.lampa_texture, arcade.LBWH(SHAPE.x - BLOCK_HEIGHT * 4, 50, 60, 105))
         self._draw.door(self._door, Lev_Patterns.get_default_door())
         self._draw.door(self._left_door, Lev_Patterns.get_default_door())
         self._draw.texts(LEVEL_20)

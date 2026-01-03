@@ -6,6 +6,7 @@ import protocols as proto
 from texts import pixel_font
 
 DIGIT_BLOCK_WIDTH = 65
+
 @dataclass
 class DigitBlock(proto.Platform):
     physics: Physics
@@ -16,6 +17,13 @@ class DigitBlock(proto.Platform):
     
     def __post_init__(self):
         self.physics.is_active = False
+        self._text_obj = arcade.Text(
+            str(self.current_digit),
+            self.position.x, self.position.y,
+            self.text_color, self.font_size,
+            align="center", anchor_x="center", anchor_y="center",
+            font_name=pixel_font, bold=True
+        )
     
     @property
     def position(self) -> Vector2:
@@ -34,22 +42,18 @@ class DigitBlock(proto.Platform):
     
     def increment(self) -> None:
         self.current_digit = (self.current_digit + 1) % 10
-
+        self._text_obj.text = str(self.current_digit)
     
     def decrement(self) -> None:
         self.current_digit = (self.current_digit - 1) % 10
+        self._text_obj.text = str(self.current_digit)
     
     def set_digit(self, digit: int) -> None:
         self.current_digit = max(0, min(9, digit))
+        self._text_obj.text = str(self.current_digit)
     
     def to_draw(self) -> arcade.Text:
-        return arcade.Text(
-            str(self.current_digit),
-            self.position.x, self.position.y,
-            self.text_color, self.font_size,
-            align="center", anchor_x="center", anchor_y="center",
-            font_name=pixel_font, bold=True
-        )
+        return self._text_obj
     
     @property
     def get_digit(self) -> int:

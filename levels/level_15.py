@@ -42,7 +42,8 @@ class Level_15:
         self._draw = draw
         self.pressed_keys = set[int]()
         self.ANSWER = [5, 3, 9]
-        
+        self.blocks_changed = True
+
         self._keyboard_state_changed = Event[set[int], None]()
         self._keyboard_state_changed.subscribe(self._on_keys_changed)
 
@@ -81,15 +82,17 @@ class Level_15:
         if GameRules.check_level_completion(self._player, self._exit_position):
             GameRules.complete_level(self.game_app, self.level_num)
         
-        digs = [i.get_digit for i in self.digit_blocks]
-        if digs == self.ANSWER:
-            self.change_door(self._door, True)
-            self._door.set_position(Vector2(SHAPE.x - BLOCK_HEIGHT // 2, self._door.position.y))
-            self._door.set_width(BLOCK_HEIGHT)
-        else:
-            self.change_door(self._door, False)
-            self._door.set_position(Vector2(SHAPE.x - BLOCK_HEIGHT + 5, self._door.position.y))
-            self._door.set_width(10)
+        if self.blocks_changed:
+            digs = [i.get_digit for i in self.digit_blocks]
+            if digs == self.ANSWER:
+                self.change_door(self._door, True)
+                self._door.set_position(Vector2(SHAPE.x - BLOCK_HEIGHT // 2, self._door.position.y))
+                self._door.set_width(BLOCK_HEIGHT)
+            else:
+                self.change_door(self._door, False)
+                self._door.set_position(Vector2(SHAPE.x - BLOCK_HEIGHT + 5, self._door.position.y))
+                self._door.set_width(10)
+            self.blocks_changed = False
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
         if button == arcade.MOUSE_BUTTON_LEFT:
@@ -103,6 +106,7 @@ class Level_15:
                 
                 if left <= x <= right and bottom <= y <= top:
                     block.increment()
+                    self.blocks_changed = True
                     break
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:

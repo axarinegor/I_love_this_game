@@ -151,3 +151,6 @@ class Level_8:
         self._player.physics.velocity = Vector2.zero()
         self.pressed_keys.clear()
         self._keyboard_state_changed.invoke(set())
+        
+    def on_mouse_press(self) -> None:
+        return

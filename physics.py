@@ -100,7 +100,7 @@ class Physics:
         if side == 'top':
             self.position = Vector2(
                 self.position.x,
-                other_top + self.height / 2 + 0.5
+                other_top + self.height / 2
             )
             if self.velocity.y < 0:
                 self.velocity = Vector2(self.velocity.x, 0)
@@ -121,7 +121,7 @@ class Physics:
         elif side == 'bottom':
             self.position = Vector2(
                 self.position.x,
-                other_bottom - self.height / 2 - 1.0
+                other_bottom - self.height / 2
             )
             if self.velocity.y > 0:
                 self.velocity = Vector2(self.velocity.x, 0)

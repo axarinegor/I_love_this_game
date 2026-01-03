@@ -1,7 +1,7 @@
 from draw import Draw, PLAYER_SIZE
 from texts import *
 from level_pattern import Lev_Patterns
-from move import Move 
+from move import Move
 from observer import Event, OnEventSubscriber
 import arcade
 from physics import BLOCK_HEIGHT, SHAPE, Physics
@@ -11,26 +11,26 @@ from door import Door
 from gamerules import GameRules
 from typing import Any
 
-class Level_16:
+class Level_18:
     def __init__(self,
                  title: str,
                  screen_shape: Vector2Int,
                  draw: Draw,
                  player: proto.Player,
-                 door_is_open: bool = True,
                  game_app: Any = None,
-                 level_num: int = 7     
+                 level_num: int = 18,
+                 door_is_open: bool = True
                  ) -> None:
         self.background_color = (213, 255, 202)
+        self._exit_position = Vector2(BLOCK_HEIGHT // 2, SHAPE.y - 180)
         self.block_texture = Lev_Patterns.get_default_block()
-        self._exit_position = Vector2(SHAPE.x - 15, BLOCK_HEIGHT + PLAYER_SIZE.y // 2)
         if not door_is_open:
-            _pos_x = SHAPE.x - BLOCK_HEIGHT + 5
+            _pos_x = BLOCK_HEIGHT + 5
             _width = 10
         else:
-            _pos_x = SHAPE.x - BLOCK_HEIGHT // 2
+            _pos_x = BLOCK_HEIGHT // 2
             _width = BLOCK_HEIGHT
-        door_physics = Physics(position=Vector2(_pos_x, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 7),
+        door_physics = Physics(position=Vector2(_pos_x, SHAPE.y - 182),
                                     width=_width,
                                     height=PLAYER_SIZE.y + 16
                                 )
@@ -51,38 +51,15 @@ class Level_16:
         self.game_app = game_app
         self.level_num = level_num
 
-
-        self.countdown_timer = 5.0
-        self.countdown_active = True
-        self.memory_blocks = [
-            Physics(position=Vector2(300, 150), width=BLOCK_HEIGHT, height=BLOCK_HEIGHT),
-            Physics(position=Vector2(420, 290), width=BLOCK_HEIGHT, height=BLOCK_HEIGHT),
-            Physics(position=Vector2(700, 140), width=BLOCK_HEIGHT, height=BLOCK_HEIGHT),
-        ]
-        self.countdown_text = arcade.Text(
-            "Запомни",
-            SHAPE.x // 2, SHAPE.y // 2 + 180,
-            arcade.color.BLACK,
-            anchor_x="center", anchor_y="center",
-            font_name=pixel_font, font_size=MEDIUM_SIZE
-        )
-        self.timer_text = arcade.Text(
-            "5",
-            SHAPE.x // 2, SHAPE.y // 2 + 70,
-            arcade.color.BLACK,
-            anchor_x="center", anchor_y="center",
-            font_name=pixel_font, font_size=MEDIUM_SIZE
-        )
-        self.test_text = arcade.Text(
-            "Вспоминай",
-            SHAPE.x // 2, SHAPE.y // 2 + 180,
-            arcade.color.BLACK,
-            anchor_x="center", anchor_y="center",
-            font_name=pixel_font, font_size=MEDIUM_SIZE
-        )
+        self.left_mouse_pressed = False
+        self.freeze_y = 0
+        self.is_frozen = False
 
     def _on_keys_changed(self, pressed_keys: set[int]) -> None:
-        if not self.countdown_active:
+        if self.left_mouse_pressed:
+            direction = Move.keys_to_direction(pressed_keys)
+            self._player.set_direction(Vector2(direction.x, 0))
+        else:
             direction = Move.keys_to_direction(pressed_keys)
             self._player.set_direction(direction)
             if Move.should_jump(pressed_keys):
@@ -93,26 +70,49 @@ class Level_16:
         return self._keyboard_state_changed.subscriber
 
     def on_fixed_update(self, delta_time: float) -> None:
-        if self.countdown_active:
-            self.countdown_timer -= delta_time
-            if self.countdown_timer <= 0:
-                self.countdown_active = False
-                self.countdown_timer = 0
-            # Обновляем текст таймера
-            self.timer_text.text = f"{max(0, int(self.countdown_timer))}"
-            return
+        if self.left_mouse_pressed:
+            if not self.is_frozen:
+                self.freeze_y = self._player.physics.position.y
+                self.is_frozen = True
+            
+            original_position = self._player.physics.position
+            original_velocity = self._player.physics.velocity
+            original_on_ground = self._player.physics.on_ground
+            
+            self._player.physics.velocity = Vector2(original_velocity.x, 0)
+            self._player.physics.on_ground = False
+            
+            if not self._door.is_open:
+                all_collision_objects = self._platforms + [self._door]
+                self._player.update(delta_time, all_collision_objects)
+            else:
+                self._player.update(delta_time, self._platforms)
+            
+            self._player.physics.position = Vector2(
+                self._player.physics.position.x,
+                self.freeze_y
+            )
+            
+        else:
+            if self.is_frozen:
+                self.is_frozen = False
+            
+            if not self._door.is_open:
+                all_collision_objects = self._platforms + [self._door]
+                self._player.update(delta_time, all_collision_objects)
+            else:
+                self._player.update(delta_time, self._platforms)
         
-        if not self._door.is_open:
-            all_collision_objects = self._platforms + [self._door] + self.memory_blocks
-            self._player.update(delta_time, all_collision_objects)
-            return
-        self._player.update(delta_time, self._platforms + self.memory_blocks)
         if GameRules.check_level_completion(self._player, self._exit_position):
             GameRules.complete_level(self.game_app, self.level_num)
 
-    def on_mouse_press(self) -> None:
-        return
-    
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
+        if button == arcade.MOUSE_BUTTON_LEFT:
+            self.left_mouse_pressed = not self.left_mouse_pressed
+            self._keyboard_state_changed.invoke(self.pressed_keys)
+            return
+
+
     def on_key_press(self, symbol: int, modifiers: int) -> None:
         if symbol == arcade.key.P:
             if not self.game_app.is_paused():
@@ -133,12 +133,4 @@ class Level_16:
             self._draw.texture_wall(platform, self.block_texture)
         self._draw.door(self._door, Lev_Patterns.get_default_door())
         self._draw.door(self._left_door, Lev_Patterns.get_default_door())
-        #self._draw.texts(LEVEL_16)
-        if self.countdown_active:
-            for block in self.memory_blocks:
-                # Рисуем блок с текстурой
-                self._draw.texture_wall(block, self.block_texture)
-            self.countdown_text.draw()
-            self.timer_text.draw()
-        else:
-            self.test_text.draw()
+        self._draw.texts(LEVEL_18)

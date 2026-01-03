@@ -1,5 +1,9 @@
 from draw import Draw
+from levels.level_11 import Level_11
+from levels.level_18 import Level_18
 from levels.level_1 import Level_1
+from levels.level_10 import Level_10
+from levels.level_13 import Level_13
 from levels.level_14 import Level_14
 from levels.level_15 import Level_15
 from levels.level_19 import Level_19
@@ -7,12 +11,14 @@ from levels.level_20 import Level_20
 from levels.level_4 import Level_4
 from levels.level_2 import Level_2
 from levels.level_3 import Level_3
+from levels.level_5 import Level_5
 from levels.level_6 import Level_6
 from levels.level_8 import Level_8
 from levels.level_7 import Level_7
 from levels.level_12 import Level_12
 from levels.level_16 import Level_16
 from levels.level_17 import Level_17
+from levels.level_9 import Level_9
 from physics import SPAWN_POSITION, Physics
 from player import Player 
 from states.level import LevelState
@@ -37,7 +43,13 @@ class LevelFactory:
         20: Level_20,
         19: Level_19,
         15: Level_15,
-        14: Level_14
+        14: Level_14,
+        5: Level_5,
+        18: Level_18,
+        9: Level_9,
+        13: Level_13,
+        10: Level_10,
+        11: Level_11
     }
 
     @classmethod

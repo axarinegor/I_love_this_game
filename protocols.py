@@ -23,6 +23,8 @@ class Player(ABC):
         ...
 
 
+
+
 class Platform(ABC):
     @abstractmethod
     def __post_init__(self):
@@ -44,19 +46,38 @@ class Platform(ABC):
         ...
     
     @abstractmethod
-    def update(self, dt: float, platforms: list = None) -> None:
+    def update(self, dt: float) -> None:
         ...
+    
 
 
-class Door(ABC): 
+
+from dataclasses import dataclass
+
+import arcade
+
+
+from vector import Vector2, Vector2Int
+from physics import SHAPE, Physics, BLOCK_HEIGHT
+
+@dataclass
+class Door(): 
     @property
     @abstractmethod
     def position(self) -> Vector2:
         ...
     
+    @abstractmethod
+    def set_position(self, position: Vector2) -> None:
+        ...
+    
     @property
     @abstractmethod
     def width(self) -> float:
+        ...
+    
+    @abstractmethod
+    def set_width(self, width: Vector2) -> None:
         ...
     
     @property
@@ -66,6 +87,15 @@ class Door(ABC):
     
     @abstractmethod
     def update(self, dt: float) -> None:
+        ...
+    
+    @abstractmethod
+    def set_open(self, value: bool) -> None:
+        ...
+
+    @property
+    @abstractmethod
+    def get_open(self) -> bool:
         ...
 
 

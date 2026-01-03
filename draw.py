@@ -37,7 +37,7 @@ class Draw:
             bottom=platform.position.y - platform.height // 2,
             width=platform.width,
             height=platform.height,
-            color=platform.color
+            color=(255, 255, 255)
         )
 
     def door(self, door: proto.Door, texture) -> None:
@@ -57,6 +57,15 @@ class Draw:
                 height=door.height,
                 color=door.color
             )
+
+    def chain(self, platform: proto.Platform, texture) -> None:
+        arcade.draw_texture_rect(
+                    texture=texture,
+                    rect=arcade.rect.LBWH(left=platform.position.x - 55, 
+                                        bottom=platform.position.y + platform.height // 2, 
+                                        width=100, 
+                                        height=500)
+                )
 
     def texture_wall(self, platform: proto.Platform, texture: arcade.Texture) -> None:
         tiles_y_count = int(platform.height / BLOCK_HEIGHT)

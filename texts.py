@@ -1,6 +1,8 @@
 import arcade
 import pyglet
 
+from physics import SHAPE
+
 # Обычный пиксельный шрифт - Digital Upscaled Pixel
 pyglet.font.add_file("data/Pixel_fonc.otf")
 pixel_font = "Digital Upscaled Pixel"
@@ -12,20 +14,20 @@ NAME_LEVELS = {1:'1 - Знакомство',
                2:'2 - Прыжок веры',
                3:'3 - Секретные стены',
                4:'4 - Углы',
-               5:'5 - ',
+               5:'5 - Паспарту',
                6:'6 - Тыкай и рисуй!',
                7:'7 - Темнота',
                8:'8 - Ракеты!',
-               9:'9 - ',
-               10:'10 - ',
-               11:'11 - ',
+               9:'9 - Сапер',
+               10:'10 - Колесо',
+               11:'11 - Психотерапия',
                12:'12 - Имя, только имя',
-               13:'13 - ',
+               13:'13 - Циклоп',
                14:'14 - Прыгун',
                15:'15 - Странный алфавит',
                16:'16 - Альцгеймер',
                17:'17 - Гравитация',
-               18:'18 - ',
+               18:'18 - ЛКМ',
                19:'19 - Переключатель',
                20:'20 - Конец(',
                }
@@ -83,6 +85,58 @@ LEVEL_3 = [arcade.Text(
             font_name=pixel_font,
             bold=True
            )]
+
+
+LEVEL_10 = [arcade.Text(
+            text="Колёсико мыши",
+            x=SHAPE.x // 2,
+            y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center"
+           )]
+
+
+LEVEL_13 = [arcade.Text(
+            text="Циклоп",
+            x=SHAPE.x // 2,
+            y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center"
+           )]
+
+
+LEVEL_5 = [arcade.Text(
+            text="Ключик",
+            x=810,
+            y=300,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True
+           )]
+
+
+
+LEVEL_9 = [arcade.Text(
+            text="Границы",
+            x=SHAPE.x // 2,
+            y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center"
+           )]
+
 
 LEVEL_6 = [arcade.Text(
             text="Тыкай, рисуй!",
@@ -167,6 +221,17 @@ LEVEL_4 = [arcade.Text(
             text="Углы",
             x=250,
             y=500,
+            color=arcade.color.BLACK,
+            font_size=BIG_SIZE,
+            font_name=pixel_font,
+            bold=True
+           )]
+
+
+LEVEL_18 = [arcade.Text(
+            text="ЛКМ",
+            x=530,
+            y=400,
             color=arcade.color.BLACK,
             font_size=BIG_SIZE,
             font_name=pixel_font,

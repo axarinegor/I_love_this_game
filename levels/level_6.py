@@ -1,3 +1,4 @@
+from block import Platform
 from draw import Draw, PLAYER_SIZE
 from texts import *
 from level_pattern import Lev_Patterns
@@ -93,13 +94,13 @@ class Level_6:
                 self.last_mouse_pos = current_pos
 
     def _create_block(self, x: int, y: int) -> None:
-        block_physics = Physics(
+        block = Platform(Physics(
             position=Vector2(x, y),
             width=self.block_size,
             height=self.block_size,
-            is_active=True
+            is_active=True)
         )
-        self.created_blocks.append(block_physics)
+        self.created_blocks.append(block)
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
         if symbol == arcade.key.P:
@@ -120,13 +121,7 @@ class Level_6:
             self._draw.platform(platform)
             self._draw.texture_wall(platform, self.block_texture)
         for block in self.created_blocks:
-            temp_platform = type('TempPlatform', (), {
-                'position': block.position,
-                'width': block.width,
-                'height': block.height,
-                'color': arcade.color.GRAY
-            })()
-            self._draw.platform(temp_platform)
+            self._draw.platform(block)
         self._draw.door(self._door, Lev_Patterns.get_default_door())
         self._draw.door(self._left_door, Lev_Patterns.get_default_door())
         self._draw.texts(LEVEL_6)
