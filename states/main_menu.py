@@ -3,8 +3,7 @@ from states.base_state import BaseState
 from button import Button
 import arcade
 from dataclasses import dataclass
-from typing import Optional, Any
-from texts import BIG_SIZE, pixel_font
+from texts import pixel_font
 from vector import Vector2
 
 @dataclass

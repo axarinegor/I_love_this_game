@@ -37,7 +37,7 @@ class Draw:
             bottom=platform.position.y - platform.height // 2,
             width=platform.width,
             height=platform.height,
-            color=(255, 255, 255)
+            color=(84, 135, 37)
         )
 
     def door(self, door: proto.Door, texture) -> None:
@@ -134,8 +134,6 @@ class Draw:
         arcade.draw_triangle_outline(470, 150, 520, 150, 495, 200, color, 4)
         arcade.draw_circle_outline(590, 172, 30, color, 4)
         arcade.draw_lbwh_rectangle_outline(670, 140, 50, 60, color, 4)
-        #arcade.draw_triangle_outline(470, 150, 520, 150, 495, 200, arcade.color.BLACK, 4)
-
 
 
             

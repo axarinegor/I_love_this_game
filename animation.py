@@ -111,13 +111,6 @@ class Animation:
         self._progress = 0
 
 
-
-
-
-
-
-
-
 # https://ezgif.com/sprite-cutter/
 
 @define
@@ -164,7 +157,7 @@ class RocketAnimation:
 @define
 class ExplosionEffect:
     position: Vector2Int
-    animation: object  # ← теперь может быть любая анимация
+    animation: object
     _is_finished: bool = field(default=False, init=False)
 
     @classmethod

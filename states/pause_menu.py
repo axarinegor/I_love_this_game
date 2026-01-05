@@ -33,13 +33,12 @@ class PauseMenu(BaseState):
         ]
 
     def handle_input(self, x: float = None, y: float = None, button: int = None, **kwargs) -> dict[str, any] | None:
-        modifiers = kwargs.get('modifiers', 0)
         if x is not None and y is not None and button == arcade.MOUSE_BUTTON_LEFT:
             for i, btn in enumerate(self.buttons):
                 if btn.is_clicked(x, y):
-                    if i == 0:  # Продолжить
+                    if i == 0:
                         return {"action": "resume"}
-                    elif i == 1:  # Начать заново
+                    elif i == 1:
                         return {"action": "restart_level", "level_num": self.level_num}
                     elif i == 2:
                         return {"action": "exit_to_menu"}

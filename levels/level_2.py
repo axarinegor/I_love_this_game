@@ -9,6 +9,7 @@ from physics import BLOCK_HEIGHT, SHAPE, Physics
 from texts import *
 from vector import Vector2, Vector2Int
 import protocols as proto
+import arcade
 
 class Level_2:
     def __init__(self,
@@ -25,12 +26,8 @@ class Level_2:
         self._exit_position = Vector2(SHAPE.x - 15, BLOCK_HEIGHT + PLAYER_SIZE.y // 2)
         self.game_app = game_app
         self.level_num = level_num
-        if not door_is_open:
-            _pos_x = SHAPE.x - BLOCK_HEIGHT + 5
-            _width = 10
-        else:
-            _pos_x = SHAPE.x - BLOCK_HEIGHT // 2
-            _width = BLOCK_HEIGHT
+        _pos_x = SHAPE.x - BLOCK_HEIGHT // 2
+        _width = BLOCK_HEIGHT
         door_physics = Physics(position=Vector2(_pos_x, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 7),
                                     width=_width,
                                     height=PLAYER_SIZE.y + 16

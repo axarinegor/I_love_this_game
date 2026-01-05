@@ -69,9 +69,6 @@ class Level_11:
     def keyboard_state_changed(self) -> OnEventSubscriber[set[int], None]:
         return self._keyboard_state_changed.subscriber
 
-    def on_mouse_press(self) -> None:
-        ...
-
     def on_fixed_update(self, delta_time: float) -> None:
         if self.waiting:
             self.wait_timer += delta_time

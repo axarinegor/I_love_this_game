@@ -27,5 +27,3 @@ class GameRules:
     def complete_level_and_return_to_menu(game_app, level_num: int) -> None:
         game_app.save_system.complete_level(level_num)
         game_app.switch_to_state("main_menu")
-
-#GameRules.complete_level_and_return_to_menu(self.game_app, self.level_num)

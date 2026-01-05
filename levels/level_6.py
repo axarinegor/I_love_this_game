@@ -55,7 +55,7 @@ class Level_6:
         self.created_blocks = []
         self.is_drawing = False
         self.last_mouse_pos = Vector2(0, 0)
-        self.block_size = 5  
+        self.block_size = 20  
 
     def _on_keys_changed(self, pressed_keys: set[int]) -> None:
         direction = Move.keys_to_direction(pressed_keys)

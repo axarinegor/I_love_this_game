@@ -2,12 +2,12 @@ from dataclasses import dataclass
 
 import arcade
 
-
+import protocols as proto
 from vector import Vector2, Vector2Int
 from physics import SHAPE, Physics, BLOCK_HEIGHT
 
 @dataclass
-class Door(): 
+class Door(proto.Door): 
     physics: Physics
     is_open: bool = False
     color: arcade.color = (98, 181, 65)

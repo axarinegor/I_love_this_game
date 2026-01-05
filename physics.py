@@ -79,8 +79,8 @@ class Physics:
         left1, right1, bottom1, top1 = self.bounds
         left2, right2, bottom2, top2 = other.bounds
 
-        if not (right1 > left2 and left1 < right2 and
-                top1 > bottom2 and bottom1 < top2):
+        if not (right1 >= left2 and left1 <= right2 and
+                top1 >= bottom2 and bottom1 <= top2):
             return False, "none", 0.0
 
         overlaps = {
@@ -100,7 +100,7 @@ class Physics:
         if side == 'top':
             self.position = Vector2(
                 self.position.x,
-                other_top + self.height / 2
+                other_top + self.height / 2 + 1 
             )
             if self.velocity.y < 0:
                 self.velocity = Vector2(self.velocity.x, 0)
@@ -108,20 +108,20 @@ class Physics:
 
         elif side == 'left':
             self.position = Vector2(
-                other_left - self.width / 2,
+                other_left - self.width / 2 - 1, 
                 self.position.y
             )
 
         elif side == 'right':
             self.position = Vector2(
-                other_right + self.width / 2,
+                other_right + self.width / 2 + 1,
                 self.position.y
             )
 
         elif side == 'bottom':
             self.position = Vector2(
                 self.position.x,
-                other_bottom - self.height / 2
+                other_bottom - self.height / 2 - 1 
             )
             if self.velocity.y > 0:
                 self.velocity = Vector2(self.velocity.x, 0)

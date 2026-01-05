@@ -41,16 +41,15 @@ class Move:
             has_collision, side, overlap = physics.check_collision(temp_physics)
             
             if has_collision:
-                physics.resolve_collision(temp_physics, side, overlap)
                 if side == 'top':
                     is_on_platform = True
-                    pass
-                
+                physics.resolve_collision(temp_physics, side, overlap)
+                    
             for corner in player_corners:
                 corner_physics = Physics(
                     position=corner,
-                    width=1.0,
-                    height=1.0
+                    width=1,
+                    height=1
                 )
                 corner_collision, corner_side, _ = corner_physics.check_collision(temp_physics)
                 if corner_collision and corner_side == 'top':

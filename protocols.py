@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 from typing import Callable
 from physics import Physics
 from vector import Vector2, Vector2Int
+from dataclasses import dataclass
+
+
 
 
 class Player(ABC):
@@ -52,16 +55,8 @@ class Platform(ABC):
 
 
 
-from dataclasses import dataclass
 
-import arcade
-
-
-from vector import Vector2, Vector2Int
-from physics import SHAPE, Physics, BLOCK_HEIGHT
-
-@dataclass
-class Door(): 
+class Door(ABC): 
     @property
     @abstractmethod
     def position(self) -> Vector2:
@@ -88,7 +83,7 @@ class Door():
     @abstractmethod
     def update(self, dt: float) -> None:
         ...
-    
+
     @abstractmethod
     def set_open(self, value: bool) -> None:
         ...
@@ -97,7 +92,6 @@ class Door():
     @abstractmethod
     def get_open(self) -> bool:
         ...
-
 
 class Rocket(ABC):
     @property
