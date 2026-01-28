@@ -1,32 +1,54 @@
 from abc import ABC, abstractmethod
 from typing import Callable
+
+import arcade
 from physics import Physics
 from vector import Vector2, Vector2Int
-from dataclasses import dataclass
+
 
 
 
 
 class Player(ABC):
-    @property
     @abstractmethod
-    def position(self) -> Vector2:
+    def __post_init__(self):
         ...
-    
+
     @abstractmethod
     def set_direction(self, direction: Vector2) -> None:
         ...
-    
-    @abstractmethod
-    def jump(self) -> None:
-        ...
-    
+
     @abstractmethod
     def update(self, dt: float, platforms: list = None) -> None:
         ...
 
+    @property
+    @abstractmethod
+    def texture(self):
+        ...
 
+    @property
+    @abstractmethod
+    def position(self) -> Vector2:
+        ...
 
+    @abstractmethod
+    def jump(self) -> None:
+        ...
+
+    @abstractmethod
+    def toggle_gravity(self) -> None:
+        ...
+
+    @property
+    @abstractmethod
+    def width(self) -> float:
+        ...
+
+    @property
+    @abstractmethod
+    def height(self) -> float:
+        ...
 
 class Platform(ABC):
     @abstractmethod
@@ -53,10 +75,17 @@ class Platform(ABC):
         ...
     
 
-
-
-
-class Door(ABC): 
+class Door(ABC):
+    @property
+    @abstractmethod
+    def physics(self) -> Physics:
+        ...
+    
+    @physics.setter
+    @abstractmethod
+    def physics(self, value: Physics) -> None:
+        ...
+    
     @property
     @abstractmethod
     def position(self) -> Vector2:
@@ -83,17 +112,38 @@ class Door(ABC):
     @abstractmethod
     def update(self, dt: float) -> None:
         ...
-
+    
     @abstractmethod
     def set_open(self, value: bool) -> None:
         ...
 
     @property
     @abstractmethod
-    def get_open(self) -> bool:
+    def is_open(self) -> bool:
+        ...
+    
+    @is_open.setter
+    @abstractmethod
+    def is_open(self, value: bool) -> None:
+        ...
+    
+    @property
+    @abstractmethod
+    def color(self) -> arcade.color:
+        ...
+    
+    @color.setter
+    @abstractmethod
+    def color(self, value: arcade.color) -> None:
         ...
 
+
+
 class Rocket(ABC):
+    @abstractmethod
+    def __post_init__(self):
+        ...
+
     @property
     @abstractmethod
     def physics(self) -> Physics:
@@ -111,13 +161,13 @@ class Rockets(ABC):
     @abstractmethod
     def spawn(self, position: Vector2) -> None:
         ...
- 
+
     @abstractmethod
-    def kill(self, rocket) -> None:
+    def kill(self, rocket: Rocket) -> None:
         ...
 
     @abstractmethod
-    def apply(self, function) -> None:
+    def apply(self, function: Callable[[Rocket], None]) -> None:
         ...
 
     @abstractmethod
@@ -125,9 +175,12 @@ class Rockets(ABC):
         ...
 
     @abstractmethod
-    def touched(self, player):
+    def touched(self, player: Player) -> bool:
         ...
 
+    @abstractmethod
+    def get(self) -> list[Rocket]:
+        ...
     
 
 
