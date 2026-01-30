@@ -1,3 +1,4 @@
+from yandex_arcade.states.pause_menu import PauseMenu
 from ..draw import Draw, PLAYER_SIZE
 from ..patterns.texts import *
 from ..patterns.level_pattern import Lev_Patterns
@@ -96,16 +97,14 @@ class Level_13:
         return
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
-        if symbol == arcade.key.ESCAPE:
-            if not self._game_app.is_paused():
-                self._game_app.pause_level()
-            return
         if symbol == arcade.key.A:
             self._cik = [0]
         elif symbol == arcade.key.D:
             self._cik = [1]
         self._pressed_keys.add(symbol)
         self._keyboard_state_changed.invoke(self._pressed_keys)
+        if PauseMenu.should_pause(self._pressed_keys, self._game_app.is_paused()):
+            self._game_app.pause_level()
 
     def on_key_release(self, symbol: int, modifiers: int) -> None:
         self._pressed_keys.discard(symbol)

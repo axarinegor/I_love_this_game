@@ -1,4 +1,6 @@
 from typing import Any
+
+from yandex_arcade.states.pause_menu import PauseMenu
 from ..game_items.door import Door
 from ..draw import PLAYER_SIZE, Draw
 from ..other.gamerules import GameRules
@@ -84,12 +86,10 @@ class Level_1:
         return
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
-        if symbol == arcade.key.ESCAPE:
-            if not self._game_app.is_paused():
-                self._game_app.pause_level()
-            return
         self._pressed_keys.add(symbol)
         self._keyboard_state_changed.invoke(self._pressed_keys)
+        if PauseMenu.should_pause(self._pressed_keys, self._game_app.is_paused()):
+            self._game_app.pause_level()
         if Move.should_jump(self._pressed_keys):
             self._player.jump()
 

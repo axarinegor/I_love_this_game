@@ -3,7 +3,7 @@ import pyglet
 from ..tools.physics import SHAPE
 
 # Обычный пиксельный шрифт - Digital Upscaled Pixel
-pyglet.font.add_file("yandex_arcade\data\Pixel_fonc.otf")
+pyglet.font.add_file(r"yandex_arcade\data\Pixel_fonc.otf")
 pixel_font = "Digital Upscaled Pixel"
 BIG_SIZE = 30
 MEDIUM_SIZE = 22
@@ -56,7 +56,7 @@ LEVEL_1 = [arcade.Text(
             font_name=pixel_font
            ), 
             arcade.Text(
-            text="P - Пауза",
+            text="ESC - Пауза",
             x=380,
             y=305,
             color=arcade.color.BLACK,

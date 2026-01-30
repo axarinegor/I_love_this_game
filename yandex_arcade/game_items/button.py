@@ -1,7 +1,11 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import os
 from ..tools.vector import Vector2
 import arcade
 from ..patterns.texts import pixel_font
+from ..tools.observer import Event
+from ..other.sound_manager import background_music 
+
 
 @dataclass
 class Button:
@@ -32,8 +36,12 @@ class Button:
         right = self._position.x + self._width / 2
         bottom = self._position.y - self._height / 2
         top = self._position.y + self._height / 2
-        
-        return left <= mouse_x <= right and bottom <= mouse_y <= top
+        clicked = left <= mouse_x <= right and bottom <= mouse_y <= top
+        if clicked:
+            parent_dir = os.path.dirname(os.path.dirname(__file__)) 
+            music_path = os.path.join(parent_dir, "data", "click_music.mp3")
+            background_music.play_sound_effect(music_path, volume=0.75)
+        return clicked
     
     def draw(self) -> None:
         arcade.draw_lbwh_rectangle_filled(

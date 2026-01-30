@@ -5,6 +5,7 @@ import arcade
 from ..draw import Draw
 from dataclasses import dataclass
 from ..patterns.texts import pixel_font, NAME_LEVELS
+from ..other.sound_manager import background_music 
 
 @dataclass
 class PauseMenu(BaseState):
@@ -32,11 +33,13 @@ class PauseMenu(BaseState):
             Button("Начать заново", Vector2(self._width // 2, self._height // 2 - 10), _font_size=20, _color=(0, 0, 0, 0), _width=360, _kant_color=(0, 0, 0, 0)),
             Button("Выйти в меню", Vector2(self._width // 2, self._height // 2 - 80 - 10), _font_size=20, _color=(0, 0, 0, 0), _width=360, _kant_color=(0, 0, 0, 0))
         ]
+        background_music.pause()
 
     def handle_input(self, x: float = None, y: float = None, button: int = None, **kwargs) -> dict[str, any] | None:
         if x is not None and y is not None and button == arcade.MOUSE_BUTTON_LEFT:
             for i, btn in enumerate(self._buttons):
                 if btn.is_clicked(x, y):
+                    background_music.resume()
                     if i == 0:
                         return {"action": "resume"}
                     elif i == 1:
@@ -47,3 +50,10 @@ class PauseMenu(BaseState):
 
     def draw(self) -> None:
         Draw.pause(self._width, self._height, self._buttons, self._level_text)
+
+    def should_pause(keys, is_pause) -> bool:
+        for _symbol in keys:
+            if _symbol == arcade.key.ESCAPE:
+                if not is_pause:
+                    return True
+                return False

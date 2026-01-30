@@ -1,3 +1,4 @@
+import os
 import arcade
 from .states.level import LevelState
 from .states.main_menu import MainMenu
@@ -5,6 +6,7 @@ from .states.level_select import LevelSelect
 from .levels.level_factory import LevelFactory
 from .other.save_system import SaveSystem
 from typing import Any
+from .other.sound_manager import background_music
 
 
 class GameApp(arcade.Window):
@@ -13,6 +15,12 @@ class GameApp(arcade.Window):
         self._save_system = SaveSystem()
         self._state_stack = []
         self.push_state("main_menu")
+        self.setup_background_music()
+
+    def setup_background_music(self):
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        music_path = os.path.join(base_dir, "data", "fon_music.mp3")
+        background_music.load_and_play(music_path, loop=True)
 
     @property
     def save_system(self) -> SaveSystem:
