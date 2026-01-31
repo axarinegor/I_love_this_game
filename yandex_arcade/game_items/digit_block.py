@@ -11,8 +11,8 @@ DIGIT_BLOCK_WIDTH = 65
 class DigitBlock(proto.Platform):
     _physics: Physics
     _current_digit: int = 0 
-    _color: tuple = (213, 255, 202) 
-    _text_color: tuple = (0, 0, 0)
+    _color: tuple[int, int, int] = (213, 255, 202) 
+    _text_color: tuple[int, int, int] = (0, 0, 0)
     _font_size: int = DIGIT_BLOCK_WIDTH // 3
     _text_obj: arcade.Text = None
     
@@ -47,11 +47,11 @@ class DigitBlock(proto.Platform):
         return self._current_digit
     
     @property
-    def color(self) -> tuple:
+    def color(self) -> tuple[int, int, int]:
         return self._color
     
     @property
-    def text_color(self) -> tuple:
+    def text_color(self) -> tuple[int, int, int]:
         return self._text_color
     
     @property
@@ -89,8 +89,8 @@ class DigitBlock(proto.Platform):
 class LetterBlock:
     _physics: Physics
     _letter: str = 'A'
-    _color: tuple = (213, 255, 202)
-    _text_color: tuple = (0, 0, 0)
+    _color: tuple[int, int, int] = (213, 255, 202)
+    _text_color: tuple[int, int, int] = (0, 0, 0)
     _font_size: int = DIGIT_BLOCK_WIDTH // 3
     _text: arcade.Text = None
 
@@ -127,11 +127,11 @@ class LetterBlock:
         return self._letter
     
     @property
-    def color(self) -> tuple:
+    def color(self) -> tuple[int, int, int]:
         return self._color
     
     @property
-    def text_color(self) -> tuple:
+    def text_color(self) -> tuple[int, int, int]:
         return self._text_color
     
     @property

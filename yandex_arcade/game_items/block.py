@@ -10,7 +10,7 @@ BLOCK_COLOR = arcade.color.SKOBELOFF
 @dataclass
 class Platform(proto.Platform):
     _physics: Physics
-    _color: tuple = BLOCK_COLOR
+    _color: tuple[int, int, int] = BLOCK_COLOR
     
     def __post_init__(self):
         self._physics.is_active = False
@@ -24,11 +24,11 @@ class Platform(proto.Platform):
         self._physics = value
     
     @property
-    def color(self) -> tuple:
+    def color(self) -> tuple[int, int, int]:
         return self._color
     
     @color.setter
-    def color(self, value: tuple) -> None:
+    def color(self, value: tuple[int, int, int]) -> None:
         self._color = value
     
     @property

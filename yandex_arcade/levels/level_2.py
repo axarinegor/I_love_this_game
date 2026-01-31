@@ -76,12 +76,8 @@ class Level_2:
         self._pressed_keys = value
     
     @property
-    def background_color(self) -> tuple:
+    def background_color(self) -> tuple[int, int, int]:
         return self._background_color
-    
-    @background_color.setter
-    def background_color(self, value: tuple) -> None:
-        self._background_color = value
     
     @property
     def block_texture(self) -> Any:

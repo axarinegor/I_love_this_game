@@ -39,7 +39,7 @@ class Door(proto.Door):
         return self._physics.height
     
     def update(self, dt: float) -> None:
-        if self._is_open == True:
+        if self._is_open:
             self._physics = Physics(_position=SHAPE.x - BLOCK_HEIGHT // 2, _width=BLOCK_HEIGHT, _height=100)
     
     def set_open(self, value: bool) -> None:

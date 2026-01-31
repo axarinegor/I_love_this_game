@@ -27,7 +27,7 @@ class GameApp(arcade.Window):
         return self._save_system
     
     @property
-    def state_stack(self) -> list:
+    def state_stack(self) -> list[LevelState]:
         return self._state_stack
     
     def push_state(self, state_name: str, **kwargs: Any) -> None:

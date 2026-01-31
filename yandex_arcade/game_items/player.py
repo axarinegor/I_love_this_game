@@ -33,7 +33,7 @@ class Player(proto.Player):
         elif direction.x < 0:
             self._facing_right = False
 
-    def update(self, dt: float, platforms: list = None) -> None:
+    def update(self, dt: float, platforms: list[proto.Platform] = None) -> None:
         self.physics.update(dt, gravity_direction=self._gravity_direction)
         if platforms:
             Move.player_update(platforms, self.physics)

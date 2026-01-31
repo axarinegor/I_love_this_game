@@ -83,7 +83,7 @@ class Level_18:
         return self._pressed_keys
     
     @property
-    def background_color(self) -> tuple:
+    def background_color(self) -> tuple[int, int, int]:
         return self._background_color
     
     @property

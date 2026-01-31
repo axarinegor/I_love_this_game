@@ -93,7 +93,7 @@ class RocketAnimation:
 @define
 class ExplosionEffect:
     _position: Vector2Int
-    _animation: object
+    _animation: Animation
     _is_finished: bool = field(default=False, init=False)
 
     @classmethod

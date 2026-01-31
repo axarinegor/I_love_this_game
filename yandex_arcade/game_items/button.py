@@ -13,10 +13,10 @@ class Button:
     _position: Vector2
     _width: float = 200
     _height: float = 60
-    _color: tuple = (100, 100, 180)
-    _text_color: tuple = (255, 255, 255)
+    _color: tuple[int, int, int] = (100, 100, 180)
+    _text_color: tuple[int, int, int] = (255, 255, 255)
     _font_size: int = 24
-    _kant_color: tuple = (255, 255, 255)
+    _kant_color: tuple[int, int, int] = (255, 255, 255)
     _text_obj: arcade.Text = None
     
     def __post_init__(self):

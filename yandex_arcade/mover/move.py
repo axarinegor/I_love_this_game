@@ -1,4 +1,5 @@
 import arcade
+from yandex_arcade.protocols import Platform
 from ..tools.physics import Physics
 from ..tools.vector import Vector2
 
@@ -20,7 +21,7 @@ class Move:
     def should_jump(keys: set[int]) -> bool:
         return arcade.key.SPACE in keys
     
-    def player_update(platforms: list = None, physics: Physics = None) -> None:
+    def player_update(platforms: list[Platform] = None, physics: Physics = None) -> None:
         assert platforms
         
         player_corners = [

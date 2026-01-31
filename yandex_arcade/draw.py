@@ -1,4 +1,5 @@
 import pyglet
+from .mover.animation import ExplosionEffect
 from .game_items.digit_block import DigitBlock
 from .tools.physics import BLOCK_HEIGHT
 from .game_items.rocket import Rocket
@@ -115,7 +116,7 @@ class Draw:
                                         height=rocket.physics.height)
                 )
 
-    def explode(self, explosion_effects: list):
+    def explode(self, explosion_effects: list[ExplosionEffect]):
         if not explosion_effects:
             return
         for effect in explosion_effects:
