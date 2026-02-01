@@ -10,9 +10,9 @@ class BackgroundMusic:
         self.current_music: Optional[arcade.Sound] = None
         self.volume: float = 0.25
         
-        self.music_started = Event[str]()  # событие запуска музыки
-        self.music_stopped = Event[None]()  # событие остановки
-        self.volume_changed = Event[float]()  # событие изменения громкости
+        self.music_started = Event[str]()
+        self.music_stopped = Event[None]() 
+        self.volume_changed = Event[float]()
     
     def load_and_play(self, music_path: str, loop: bool = True):
         self.stop()
