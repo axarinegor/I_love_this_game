@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+import sys
 import arcade
 from .states.level import LevelState
 from .states.main_menu import MainMenu
@@ -18,9 +20,10 @@ class GameApp(arcade.Window):
         self.setup_background_music()
 
     def setup_background_music(self):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        music_path = os.path.join(base_dir, "data", "fon_music.mp3")
-        background_music.load_and_play(music_path, loop=True)
+        #base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent))
+        #music_path = base_path / "yandex_arcade" / "data" / "fon_music.mp3"
+        background_music.load_and_play(Path('yandex_arcade/data/fon_music.mp3'), loop=True)
+
 
     @property
     def save_system(self) -> SaveSystem:
